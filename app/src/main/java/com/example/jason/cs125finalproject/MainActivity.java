@@ -47,12 +47,10 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("MYAPP", "unexpected JSON exception", e);
                 }
 
-
-
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                        Request.Method.POST,
+                        Request.Method.GET,
                         //the end point
-                        "https://api.nutritionix.com/v1_1/search",
+                        "https://gpodder.net/search.json?q=ethereum",
                         jsonBody
                         ,
                         new Response.Listener<JSONObject>() {
@@ -85,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 Log.i("MyApp", "This is a messsage log");
-                Toast.makeText(getApplicationContext(), "You have removed an ingredient!", Toast.LENGTH_SHORT)
+                Toast.makeText(getApplicationContext(), "Get Episode Data Test", Toast.LENGTH_SHORT)
                         .show();
                 //TextView myText = findViewById(R.id.textView3);
                 //myText.setText("Raymond's Message");
@@ -96,12 +94,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 Log.i("MyApp", "This is a messsage log");
-                Toast.makeText(getApplicationContext(), "You have saved!", Toast.LENGTH_SHORT)
+                Toast.makeText(getApplicationContext(), "Get Top Podcasts Test", Toast.LENGTH_SHORT)
                         .show();
                 //TextView myText = findViewById(R.id.textView3);
                 //myText.setText("Raymond's Message");
             }
         });
+        final Button zzzButton = findViewById(R.id.saveButton);
+        zzzButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                Log.i("MyApp", "This is a messsage log");
+                Toast.makeText(getApplicationContext(), "Search Podcasts Test", Toast.LENGTH_SHORT)
+                        .show();
+                //TextView myText = findViewById(R.id.textView3);
+                //myText.setText("Raymond's Message");
+            }
+        });
+
 
 //    }
     }
