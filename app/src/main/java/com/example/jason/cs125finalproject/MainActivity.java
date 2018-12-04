@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "Me and Raymond need help";
@@ -53,6 +54,4 @@ public class MainActivity extends AppCompatActivity {
 
 //    }
     }
-
-    ;
 }
