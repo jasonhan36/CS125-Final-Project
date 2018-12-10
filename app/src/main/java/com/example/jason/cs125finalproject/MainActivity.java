@@ -1,5 +1,7 @@
 package com.example.jason.cs125finalproject;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,11 +30,17 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "Me and Raymond need help";
     private static final String TAG = "MainActivity";
 
+    private Context mContext;
+    private Activity mActivity;
+    private TextView mTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mContext = getApplicationContext();
 
         final Button addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(getApplicationContext(), "You have added an ingredient!", Toast.LENGTH_SHORT)
 //                        .show();
                 TextView myText = findViewById(R.id.textView3);
+                mTextView = findViewById(R.id.textView);
+
+                //Instantiate new Request Queue
+                RequestQueue requestQueue = Volley.newRequestQueue(mContext);
 
                 JSONObject jsonBody = new JSONObject();
                 try {
@@ -50,13 +65,33 @@ public class MainActivity extends AppCompatActivity {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                         Request.Method.GET,
                         //the end point
-                        "https://gpodder.net/search.json?q=ethereum",
-                        jsonBody
+                        "https://gpodder.net/api/2/lists/jmillk.json",
+                        null
                         ,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(final JSONObject response) {
                                 Log.d(TAG, response.toString());
+                                try{
+                                    // Get the JSON array
+                                    JSONArray array = response.getJSONArray("students");
+                                    // Loop through the array elements
+                                    for(int i=0;i<array.length();i++){
+                                        // Get current json object
+                                        JSONObject student = array.getJSONObject(i);
+
+                                        // Get the current student (json object) data
+                                        String firstName = student.getString("firstname");
+                                        String lastName = student.getString("lastname");
+                                        String age = student.getString("age");
+
+                                        // Display the formatted json data in text view
+                                        mTextView.append(firstName +" " + lastName +"\nage : " + age);
+                                        mTextView.append("\n\n");
+                                    }
+                                }catch (JSONException e){
+                                    e.printStackTrace();
+                                }
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -68,14 +103,17 @@ public class MainActivity extends AppCompatActivity {
                     public Map<String, String> getHeaders() {
                         Map<String, String>  params = new HashMap<String, String>();
                         // any app keys and fields that need to be filled
-                        params.put("x-id-key", "623a35a9");
-                        params.put("x-app-key", "59447ffa6f5b0a827dfa2ecca0fc3afc");
-                        params.put("x-remote-user-id", "0");
+//                        params.put("x-id-key", "623a35a9");
+//                        params.put("x-app-key", "59447ffa6f5b0a827dfa2ecca0fc3afc");
+//                        params.put("x-remote-user-id", "0");
                         Log.d(TAG, params.toString());
                         return params;
                     }
                 };
                 myText.setText(jsonObjectRequest.toString());
+
+                // Add JsonObjectRequest to the RequestQueue
+                requestQueue.add(jsonObjectRequest);
             }
         });
         final Button removeButton = findViewById(R.id.removeButton);
