@@ -1,5 +1,6 @@
 package com.example.jason.cs125finalproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -78,17 +79,18 @@ public class MainActivity extends AppCompatActivity {
                 myText.setText(jsonObjectRequest.toString());
             }
         });
-        final Button removeButton = findViewById(R.id.removeButton);
-        removeButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        final Button episodeDataButton = findViewById(R.id.removeButton);
+        episodeDataButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 // Code here executes on main thread after user presses button
-                Log.i("MyApp", "This is a messsage log");
-                Toast.makeText(getApplicationContext(), "Get Episode Data Test", Toast.LENGTH_SHORT)
-                        .show();
-                //TextView myText = findViewById(R.id.textView3);
-                //myText.setText("Raymond's Message");
+                //Log.i("MyApp", "This is a messsage log");
+                //Toast.makeText(getApplicationContext(), "Retrieving Episode Data!", Toast.LENGTH_SHORT)
+                //        .show();
+                Intent intent = new Intent(MainActivity.this, SecondScreen.class);
+                startActivity(intent);
             }
         });
+
         final Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
