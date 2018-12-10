@@ -15,7 +15,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -50,44 +52,45 @@ public class MainActivity extends AppCompatActivity {
 //                Log.i("MyApp", "This is a messsage log");
 //                Toast.makeText(getApplicationContext(), "You have added an ingredient!", Toast.LENGTH_SHORT)
 //                        .show();
-                TextView myText = findViewById(R.id.textView3);
-                mTextView = findViewById(R.id.textView);
+//                TextView myText = findViewById(R.id.textView3);
+                mTextView = findViewById(R.id.textView3);
 
                 //Instantiate new Request Queue
                 RequestQueue requestQueue = Volley.newRequestQueue(mContext);
 
-                JSONObject jsonBody = new JSONObject();
-                try {
-                    jsonBody.put("query", "kashi");
-                } catch(JSONException e) {
-                    Log.e("MYAPP", "unexpected JSON exception", e);
-                }
-
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                         Request.Method.GET,
                         //the end point
-                        "https://gpodder.net/api/2/lists/jmillk.json",
+                        "https://pokeapi.co/api/v2/pokemon/ditto/",
                         null
                         ,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(final JSONObject response) {
                                 Log.d(TAG, response.toString());
+                                Log.d(TAG, "POO");
+                                // Process the JSON
                                 try{
                                     // Get the JSON array
-                                    JSONArray array = response.getJSONArray("students");
+                                    JSONArray array = response.getJSONArray("abilities");
+
                                     // Loop through the array elements
                                     for(int i=0;i<array.length();i++){
                                         // Get current json object
                                         JSONObject student = array.getJSONObject(i);
 
+
                                         // Get the current student (json object) data
-                                        String firstName = student.getString("firstname");
-                                        String lastName = student.getString("lastname");
-                                        String age = student.getString("age");
+                                        JSONObject ability = student.getJSONObject("ability");
+                                        String name = ability.getString("name");
+                                        String url = ability.getString("url");
+//                                        String lastName = student.getString("lastname");
+//                                        String age = student.getString("age");
 
                                         // Display the formatted json data in text view
-                                        mTextView.append(firstName +" " + lastName +"\nage : " + age);
+//                                        mTextView.append(firstName +" " + lastName +"\nage : " + age);
+                                        mTextView.append("\n\n");
+                                        mTextView.append(name);
                                         mTextView.append("\n\n");
                                     }
                                 }catch (JSONException e){
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         return params;
                     }
                 };
-                myText.setText(jsonObjectRequest.toString());
+//                mTextView.setText(jsonObjectRequest.toString());
 
                 // Add JsonObjectRequest to the RequestQueue
                 requestQueue.add(jsonObjectRequest);
