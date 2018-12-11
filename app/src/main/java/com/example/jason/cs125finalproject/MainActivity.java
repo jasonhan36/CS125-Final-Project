@@ -52,8 +52,10 @@ public class MainActivity extends AppCompatActivity {
 //                Log.i("MyApp", "This is a messsage log");
 //                Toast.makeText(getApplicationContext(), "You have added an ingredient!", Toast.LENGTH_SHORT)
 //                        .show();
+
 //                TextView myText = findViewById(R.id.textView3);
                 mTextView = findViewById(R.id.textView3);
+
 
                 //Instantiate new Request Queue
                 RequestQueue requestQueue = Volley.newRequestQueue(mContext);
