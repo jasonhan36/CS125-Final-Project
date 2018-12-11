@@ -84,11 +84,8 @@ public class MainActivity extends AppCompatActivity {
                                         JSONObject ability = student.getJSONObject("ability");
                                         String name = ability.getString("name");
                                         String url = ability.getString("url");
-//                                        String lastName = student.getString("lastname");
-//                                        String age = student.getString("age");
 
                                         // Display the formatted json data in text view
-//                                        mTextView.append(firstName +" " + lastName +"\nage : " + age);
                                         mTextView.append("\n\n");
                                         mTextView.append(name);
                                         mTextView.append("\n\n");
