@@ -134,29 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        final Button saveButton = findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                Log.i("MyApp", "This is a messsage log");
-                Toast.makeText(getApplicationContext(), "Get Top Podcasts Test", Toast.LENGTH_SHORT)
-                        .show();
-                //TextView myText = findViewById(R.id.textView3);
-                //myText.setText("Raymond's Message");
-            }
-        });
-        final Button zzzButton = findViewById(R.id.saveButton);
-        zzzButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                Log.i("MyApp", "This is a messsage log");
-                Toast.makeText(getApplicationContext(), "Search Podcasts Test", Toast.LENGTH_SHORT)
-                        .show();
-                //TextView myText = findViewById(R.id.textView3);
-                //myText.setText("Raymond's Message");
-            }
-        });
+        
 
 //    }
     }
