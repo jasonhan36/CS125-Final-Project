@@ -88,12 +88,13 @@ public class MainActivity extends AppCompatActivity {
 
                                         // Get the current student (json object) data
                                         JSONObject ability = student.getJSONObject("ability");
+                                        String zzz = ability.toString();
                                         String name = ability.getString("name");
                                         String url = ability.getString("url");
 
                                         // Display the formatted json data in text view
                                         mTextView.append("\n\n");
-                                        mTextView.append(name);
+                                        mTextView.setText(name);
                                         mTextView.append("\n\n");
                                     }
                                 }catch (JSONException e){
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        
+
 
 //    }
     }

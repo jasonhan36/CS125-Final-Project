@@ -29,7 +29,7 @@ public class SecondScreen extends AppCompatActivity {
 
         ImageView firstImage = (ImageView) findViewById(R.id.firstImage);
 
-        int imageResource = getResources().getIdentifier("@drawable/podcast", null, this.getPackageName());
+        int imageResource = getResources().getIdentifier("@drawable/pokemon", null, this.getPackageName());
         firstImage.setImageResource(imageResource);
     }
 }
