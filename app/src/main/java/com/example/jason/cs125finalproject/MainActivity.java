@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.app.SearchManager;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,10 +47,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mContext = getApplicationContext();
-
         final Button addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                SearchView simpleSearchView = (SearchView) findViewById(R.id.searchBar); // inititate a search view
+                CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
                 // Code here executes on main thread after user presses button
 //                Log.i("MyApp", "This is a messsage log");
 //                Toast.makeText(getApplicationContext(), "You have added an ingredient!", Toast.LENGTH_SHORT)
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                         Request.Method.GET,
                         //the end point
-                        "https://pokeapi.co/api/v2/pokemon/ditto/",
+                        "https://pokeapi.co/api/v2/pokemon/"+ query + "/",
                         null
                         ,
                         new Response.Listener<JSONObject>() {
@@ -153,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                 //myText.setText("Raymond's Message");
             }
         });
-
 
 //    }
     }
