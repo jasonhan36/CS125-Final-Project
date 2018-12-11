@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
 //                TextView myText = findViewById(R.id.textView3);
                 mTextView = findViewById(R.id.textView3);
-                mImageView = findViewById(R.id.imageView);
 
 
                 //Instantiate new Request Queue
@@ -87,9 +86,6 @@ public class MainActivity extends AppCompatActivity {
                                     // Get the JSON array
                                     JSONArray array = response.getJSONArray("abilities");
 
-
-
-
                                     // Loop through the array elements
                                     for(int i=0;i<array.length();i++){
                                         // Get current json object
@@ -101,14 +97,19 @@ public class MainActivity extends AppCompatActivity {
 
                                         String name = ability.getString("name");
                                         String url = ability.getString("url");
-
+                                        String[] num = url.split("v2/");
+                                        String numabil = num[1];
+                                        String[] zzz = numabil.split("/");
+                                        String numability = zzz[0] + " " + zzz[1];
 
                                         // Display the formatted json data in text view
                                         mTextView.append("\n\n");
                                         mTextView.setText(name);
                                         mTextView.append("\n\n");
+                                        mTextView.append(numability);
+                                        mTextView.append("\n\n");
                                     }
-                                }catch (JSONException e){
+                                } catch (JSONException e){
                                     e.printStackTrace();
                                 }
                             }
@@ -146,49 +147,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        final Button episodeDataButton = findViewById(R.id.removeButton);
-        episodeDataButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                // Code here executes on main thread after user presses button
-                //Log.i("MyApp", "This is a messsage log");
-                //Toast.makeText(getApplicationContext(), "Retrieving Episode Data!", Toast.LENGTH_SHORT)
-                //        .show();
-                Intent intent = new Intent(MainActivity.this, SecondScreen.class);
-                startActivity(intent);
-                mImageView = findViewById(R.id.imageView);
-
-
-                //Instantiate new Request Queue
-                RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-                SearchView simpleSearchView = (SearchView) findViewById(R.id.searchBar); // inititate a search view
-                CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                        Request.Method.GET,
-                        //the end point
-                        "https://pokeapi.co/api/v2/pokemon/"+ query + "/",
-                        null
-                        ,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(final JSONObject response) {
-                                Log.d(TAG, response.toString());
-                                Log.d(TAG, "POO");
-                                // Process the JSON
-
-
-                try {
-                    JSONObject sprites = response.getJSONObject("sprites");
-                    String pic = sprites.getString("front_default");
-                    URL url2 = new URL(pic);
-                    Bitmap bmp = BitmapFactory.decodeStream(url2.openConnection().getInputStream());
-                    mImageView.setImageBitmap(bmp);
-                } catch (IOException error, JSON) {
-                    error.printStackTrace();
-                }
-            }
-        });
-
-
 //    }
     }
 }
